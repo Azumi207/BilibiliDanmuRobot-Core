@@ -46,8 +46,11 @@ END:
 func handleRobotBullet(content entity.Bullet, svcCtx *svc.ServiceContext) {
 	var err error
 	var reply string
-	if svcCtx.Config.RobotMode == "ChatGPT" {
-		if reply, err = http.RequestChatgptRobot(content.Msg, svcCtx); err != nil {
+    
+	// 1. 将模式判断从 ChatGPT 改为 Gemini
+	if svcCtx.Config.RobotMode == "Gemini" {
+		// 2. 调用 Gemini 的请求方法（需要确保你在 http 包中实现了 RequestGeminiRobot）
+		if reply, err = http.RequestGeminiRobot(content.Msg, svcCtx); err != nil {
 			logx.Errorf("请求机器人失败：%v", err)
 			PushToBulletSender("不好意思，机器人坏掉了...", content.Reply...)
 			return
@@ -78,25 +81,6 @@ func splitRobotReply(content string, svcCtx *svc.ServiceContext) []string {
 	re, _ := regexp.Compile(`\{face\:.*\}`)
 	content = re.ReplaceAllString(content, "")
 
-	//var res []string
 	reply := strings.Split(content, "{br}")
-
-	//for _, r := range reply {
-	//	// 长度大于20再分割
-	//	zh := []rune(r)
-	//	if len(zh) > 20 {
-	//		i := 0
-	//		for i < len(zh) {
-	//			if i+20 > len(zh) {
-	//				res = append(res, string(zh[i:]))
-	//			} else {
-	//				res = append(res, string(zh[i:i+20]))
-	//			}
-	//			i += 20
-	//		}
-	//	} else {
-	//		res = append(res, string(zh))
-	//	}
-	//}
 	return reply
 }
