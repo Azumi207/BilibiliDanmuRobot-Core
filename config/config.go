@@ -37,10 +37,10 @@ type Config struct {
 	}
 	Gemini        struct { // Gemini的配置
 		APIUrl   string `json:",default=https://generativelanguage.googleapis.com"`
-		APIToken string `json:"optional"`
+		APIToken string `json:"AIzaSyBrSMNK_l3g19xU17b04Gl1v3r5o74u-rM"`
 		Prompt   string `json:",default=你是个非常幽默的机器人助理，可以使用emoji表情符号，可以使用颜文字"`
 		Limit    bool   `json:",default=true"`
-		Model    string `json:",default=gemini-2.5-flash"`
+		Model    string `json:",default=gemini-3.5-flash"`
 	}
 	
 
